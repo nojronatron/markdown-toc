@@ -8,11 +8,11 @@ const createTOC = require('./extension-functions/create-toc');
  */
 function activate(context) {
   console.log('Markdown TOC is now active!');
+
   let disposable = vscode.commands.registerCommand(
     'markdown-toc.createTOC',
     async function () {
       const firstCharacter = 0;
-      vscode.window.showInformationMessage('Creating Table of Contents...');
       const editor = vscode.window.activeTextEditor;
 
       if (editor && editor.document.languageId === 'markdown') {

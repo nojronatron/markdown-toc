@@ -9,8 +9,17 @@ const vscode = require('vscode');
 suite('Extension Test Suite', () => {
   vscode.window.showInformationMessage('Start all tests.');
 
-  test('Sample test', () => {
-    assert.strictEqual(-1, [1, 2, 3].indexOf(5));
+  let helloWorld =
+    '# First Heading\n\n## Second Heading\n\n## Third Heading\n\n### Bad Heading\n';
+  let helloWorldToc =
+    '# First Heading\n\n## Table of Contents\n\n- [Second Heading](#second-heading)\n- [Third Heading](#third-heading)\n\n## Second Heading\n\n## Third Heading\n\n### Bad Heading\n';
+
+  let noHeadings =
+    'First Heading\n\nSecond Heading\n\nThird Heading\n\nBad Heading\n';
+  let noHeadingsToc = '';
+
+  test('Create TOC', () => {
+    assert.strictEqual(createTOC(helloWorld), helloWorldToc);
     assert.strictEqual(-1, [1, 2, 3].indexOf(0));
   });
 });
