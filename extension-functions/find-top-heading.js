@@ -1,5 +1,3 @@
-const vscode = require('vscode');
-
 /**
  * Method to find the top heading of the page.
  * @returns Number The line number of the top 1st Level Heading of the page.

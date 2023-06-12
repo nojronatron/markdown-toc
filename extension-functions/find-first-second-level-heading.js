@@ -1,5 +1,3 @@
-const vscode = require('vscode');
-
 /**
  * Find the first occurrence of a second level heading in the document.
  * @returns Number The line number of the first 2nd Level Heading of the page.
