@@ -17,7 +17,7 @@ Open a Markdown File with Headings in it.
 
 ---
 
-![Open the Command Palette and find Create Table of Contents command](images\markdown-toc-create-toc-video.gif)
+![Open the Command Palette and find Create Table of Contents command](images/markdown-toc-create-toc-video.gif)
 
 Open Command Palette to find "Create Table of Contents".
 
