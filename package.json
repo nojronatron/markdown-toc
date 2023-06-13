@@ -22,7 +22,7 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "unittest": "jest --verbose runUnittests",
+    "unittest": "jest --verbose run-unit-tests",
     "test": "node ./test/runTest.js"
   },
   "devDependencies": {

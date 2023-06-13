@@ -5,8 +5,29 @@ Locates all Level 2 headings in the currently selected markdown file and creates
 ## Features
 
 - Creates a Table of Contents in the currently open markdown file.
-- Table of contents links all Level 2 headings in the file.
-- Use the VSCode Command Palette to insert the new table of contents.
+- Links to Level 2 heading IDs are stored in Table of contents.
+- Uses the VSCode Command Palette to insert the new table of contents.
+- Supports `#` character Headings markdown only.
+
+## About This Extension
+
+![Open a markdown file with headings in it]()
+
+Open a Markdown File with Headings in it.
+
+---
+
+![Open the Command Palette and find Create Table of Contents command]()
+
+Open Command Palette to find "Create Table of Contents".
+
+---
+
+![Select the command and all Level 2 headings will get linked using Heading IDs]()
+
+Select the command and a Table of Contents will be created with Heading IDs linked up.
+
+---
 
 ## Requirements
 
@@ -18,15 +39,15 @@ Locates all Level 2 headings in the currently selected markdown file and creates
 
 ## Known Issues
 
-Issues will be added once this projects reaches MVP.
+- No support for 'next-line' heading markdown that uses `=` or `-` as Heading level indicators.
+
+_Note_: This is not an exhaustive list. See [GitHub Issues List](https://github.com/nojronatron/markdown-toc/issues) for this project repository.
 
 ## Release Notes
 
-My first Extension!
-
-Minimum viable features implemented.
-
-Unit tests and documentation included.
+- My first VS Code Extension! :tada:
+- Minimum viable features implemented.
+- Unit tests and documentation included.
 
 ### 1.0.0
 
