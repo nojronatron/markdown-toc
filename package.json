@@ -3,6 +3,7 @@
   "displayName": "Markdown TOC",
   "description": "Adds a table of contents to your markdown file.",
   "version": "0.0.1",
+  "pricing": "Free",
   "engines": {
     "vscode": "^1.79.0"
   },
