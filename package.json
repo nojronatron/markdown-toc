@@ -2,7 +2,12 @@
   "name": "markdown-toc",
   "displayName": "Markdown TOC",
   "description": "Adds a table of contents to your markdown file.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nojronatron/markdown-toc.git"
+  },
   "version": "0.0.1",
+  "pricing": "Free",
   "engines": {
     "vscode": "^1.79.0"
   },
