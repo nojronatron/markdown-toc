@@ -49,9 +49,7 @@ _Note_: This is not an exhaustive list. See [GitHub Issues List](https://github.
 - Minimum viable features implemented.
 - Unit tests and documentation included.
 
-### 1.0.0
-
-MVP Release: [tbd]
+See [CHANGELOG.md](./CHANGELOG.md) for detailed release notes.
 
 ---
 
