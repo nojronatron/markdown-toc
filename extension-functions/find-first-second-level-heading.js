@@ -1,12 +1,16 @@
 /**
  * Find the first occurrence of a second level heading in the document.
+ * @param {vscode.TextEditor.document} document The active text editor.
+ * @param topHeading The line number of the top level heading of the page.
  * @returns Number The line number of the first 2nd Level Heading of the page.
- * @param {vscode.TextEditor} editor The active text editor.
  */
-module.exports = function findFirstSecondLevelHeading(editor, topHeading) {
+module.exports = function findFirstSecondLevelHeading(document, topHeading) {
   let firstSecondLevelHeading = 0;
-  for (let idx = topHeading + 1; idx < editor.document.lineCount; idx++) {
-    const line = editor.document.lineAt(idx);
+
+  // iterate through document line-by-line starting after
+  // the top heading, searching for the first second level heading
+  for (let idx = topHeading + 1; idx < document.lineCount; idx++) {
+    const line = document.lineAt(idx);
 
     // exit out if an existing Table of Contents is found.
     if (line.text.startsWith('## Table of Contents')) {
