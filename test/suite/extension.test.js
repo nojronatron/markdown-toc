@@ -5,6 +5,7 @@ const assert = require('assert');
 const vscode = require('vscode');
 const findFirstSecondLevelHeading = require('../../extension-functions/find-first-second-level-heading');
 const findTopHeading = require('../../extension-functions/find-top-heading');
+const createTOC = require('../../extension-functions/create-toc');
 
 suite('Extension Test Suite', () => {
   vscode.window.showInformationMessage('Start all tests.');
@@ -27,7 +28,7 @@ suite('Extension Test Suite', () => {
     assert.strictEqual(actual, expected);
   });
 
-  test('Find the top heading', () => {
+  test('Finds the top heading', () => {
     let testDocText =
       '# First Heading\n \n## Second Heading\n \n## Third Heading\n \n### Bad Heading\n';
     let document = {
@@ -41,6 +42,23 @@ suite('Extension Test Suite', () => {
 
     let expected = 0;
     let actual = findTopHeading(document, expected);
+    assert.strictEqual(actual, expected);
+  });
+
+  test('CreateTOC creates a TOC with valid ## headings', () => {
+    let testDocText =
+      '# First Heading\n\n## Second Heading\n\n## Third Heading\n\n### Bad Heading\n';
+    let expected =
+      '## Table of Contents\n\n- [Second Heading](#second-heading)\n- [Third Heading](#third-heading)\n\n';
+    let actual = createTOC(testDocText);
+    assert.strictEqual(actual, expected);
+  });
+
+  test('CreateTOC does NOT create a TOC without ## headings', () => {
+    let testDocText =
+      'First Heading\n\nSecond Heading\n\nThird Heading\n\nBad Heading\n';
+    let expected = '';
+    let actual = createTOC(testDocText);
     assert.strictEqual(actual, expected);
   });
 });
