@@ -1,6 +1,6 @@
 {
-  "name": "markdown-toc",
-  "displayName": "Markdown TOC",
+  "name": "jr-markdowntoc-vscode",
+  "displayName": "Create Markdown TOC",
   "description": "Adds a table of contents to your markdown file.",
   "repository": {
     "type": "git",
@@ -11,6 +11,7 @@
   "engines": {
     "vscode": "^1.79.0"
   },
+  "publisher": "jon-rumsey-dev",
   "categories": [
     "Other"
   ],
