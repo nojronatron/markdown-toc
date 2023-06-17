@@ -17,11 +17,11 @@ function activate(context) {
 
       if (editor && editor.document.languageId === 'markdown') {
         // 1. Find the top heading of the page.
-        let topHeading = findTopHeading(editor);
+        let topHeading = findTopHeading(editor.document);
 
         // 2. Find the first occurrence of a second level heading in the document. If there is no second level heading, then the TOC is not needed.
         let firstSecondLevelHeading = findFirstSecondLevelHeading(
-          editor,
+          editor.document,
           topHeading
         );
 
@@ -59,6 +59,7 @@ function activate(context) {
           tableOfContents
         );
         await vscode.workspace.applyEdit(edit);
+        vscode.window.showInformationMessage('TOC created.');
       } else {
         vscode.window.showWarningMessage('No Markdown file is currently open.');
       }
