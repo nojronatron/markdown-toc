@@ -11,6 +11,7 @@
   "engines": {
     "vscode": "^1.79.0"
   },
+  "publisher": "jon-rumsey-dev",
   "categories": [
     "Other"
   ],
