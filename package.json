@@ -27,7 +27,6 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "unittest": "jest --verbose --coverage run-unit-tests",
     "test": "node ./test/runTest.js"
   },
   "devDependencies": {
