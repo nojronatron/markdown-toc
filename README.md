@@ -1,4 +1,4 @@
-# markdown-toc README
+# Create Markdown TOC README
 
 Locates all Level 2 headings in the currently selected markdown file and creates a clean, orderly table of contents near the top that links to all Level 2 heading labels for simplified navigation.
 
@@ -46,7 +46,7 @@ _Note_: This is not an exhaustive list. See [GitHub Issues List](https://github.
 ## Release Notes
 
 - My first VS Code Extension! :tada:
-- Minimum viable features implemented.
+- Minimum viable product features implemented.
 - Unit tests and documentation included.
 
 See [CHANGELOG.md](./CHANGELOG.md) for detailed release notes.
