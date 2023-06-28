@@ -19,7 +19,7 @@ module.exports = function createTOC(capturedDocument) {
     const titleOnly = `${item.substring(3)}`;
     // strip-out characters that cause link fragments to fail
     const cleanedTitle = titleOnly.replaceAll(
-      /(?:[!@$%^&*\(\)\[\]\{\}\:';\.,])/g,
+      /(?:[!@$%^&*\(\)\[\]\{\}\:';\.,~`+=\\"\|\/?])/g,
       ''
     );
     // trim any starting or trailing whitespace
