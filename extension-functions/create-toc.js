@@ -6,7 +6,7 @@
 module.exports = function createTOC(capturedDocument) {
   let result = '';
 
-  const capturedL2Headings = capturedDocument.match(/^#{2}(?:\s\w+)+/gm);
+  const capturedL2Headings = capturedDocument.match(/^#{2}\s(?:.+)+$/gm);
 
   if (!capturedL2Headings || capturedL2Headings.Length == 0) {
     return result;
@@ -17,13 +17,17 @@ module.exports = function createTOC(capturedDocument) {
   capturedL2Headings.forEach((item) => {
     // Extract the level2 heading text
     const titleOnly = `${item.substring(3)}`;
-
+    // strip-out characters that cause link fragments to fail
+    const cleanedTitle = titleOnly.replaceAll(
+      /(?:[!@$%^&*\(\)\[\]\{\}\:';\.,])/g,
+      ''
+    );
+    // trim any starting or trailing whitespace
+    const trimmedTitle = cleanedTitle.trim();
     // Create the kebab-case version of the title
-    const loweredKebabCase = titleOnly.toLowerCase().replace(/\s/g, '-');
-
+    const loweredKebabCase = trimmedTitle.toLowerCase().replace(/\s/g, '-');
     // Create the TOC entry
     const tocEntry = `- [${titleOnly}](#${loweredKebabCase})\n`;
-
     // Add to the tocContents string
     tocContents += tocEntry;
   });
