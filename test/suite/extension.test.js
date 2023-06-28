@@ -61,4 +61,67 @@ suite('Extension Test Suite', () => {
     let actual = createTOC(testDocText);
     assert.strictEqual(actual, expected);
   });
+
+  test('CreateTOC creates valid TOC entries not link fragments', () => {
+    const expectedResultDashes =
+      '## Table of Contents\n\n- [Second - Heading](#second---heading)\n- [Third -- Heading](#third----heading)\n- [Fourth-- Heading](#fourth---heading)\n\n';
+
+    const dashedItem =
+      '# First Heading\n\n## Second - Heading\n\n## Third -- Heading\n\n## Fourth-- Heading\n';
+    assert.strictEqual(
+      createTOC(dashedItem),
+      expectedResultDashes,
+      'dashedItem headings.'
+    );
+
+    const expectedResultColons =
+      '## Table of Contents\n\n- [Second : Heading](#second--heading)\n- [Third :: Heading](#third--heading)\n- [Fourth:: Heading](#fourth-heading)\n\n';
+    const colonItem =
+      '# First Heading\n\n## Second : Heading\n\n## Third :: Heading\n\n## Fourth:: Heading\n';
+    assert.strictEqual(
+      createTOC(colonItem),
+      expectedResultColons,
+      'colonItem headings.'
+    );
+
+    const expectedResultCommas =
+      '## Table of Contents\n\n- [Second , Heading](#second--heading)\n- [Third ,, Heading](#third--heading)\n- [Fourth,, Heading](#fourth-heading)\n\n';
+    const commaItem =
+      '# First Heading\n\n## Second , Heading\n\n## Third ,, Heading\n\n## Fourth,, Heading\n';
+    assert.strictEqual(
+      createTOC(commaItem),
+      expectedResultCommas,
+      'commaItem headings.'
+    );
+
+    const expectedResultPeriods =
+      '## Table of Contents\n\n- [Second .Heading](#second-heading)\n- [Third .. Heading](#third--heading)\n- [Fourth. . .Heading](#fourth--heading)\n\n';
+    const periodItem =
+      '# First Heading\n\n## Second .Heading\n\n## Third .. Heading\n\n## Fourth. . .Heading\n';
+    assert.strictEqual(
+      createTOC(periodItem),
+      expectedResultPeriods,
+      'periodItem headings.'
+    );
+
+    const expectedResultGarbage1 =
+      '## Table of Contents\n\n- [Second ,.;:[]{}!@$%^&*() Heading](#second--heading)\n\n';
+    const garbageItem1 =
+      '# First Heading\n\n## Second ,.;:[]{}!@$%^&*() Heading\n';
+    assert.strictEqual(
+      createTOC(garbageItem1),
+      expectedResultGarbage1,
+      'garbageItem1 headings.'
+    );
+
+    const expectedResultGarbage2 =
+      '## Table of Contents\n\n- [Second ,.;:[]-{}!@$%^&*() Heading](#second---heading)\n\n';
+    const garbageItem2 =
+      '# First Heading\n\n## Second ,.;:[]-{}!@$%^&*() Heading\n';
+    assert.strictEqual(
+      createTOC(garbageItem2),
+      expectedResultGarbage2,
+      'garbageItem2 headings.'
+    );
+  });
 });
