@@ -35,7 +35,9 @@ The only dependencies are `vscode ^1.79.0 and those listed in devDependencies in
 
 ## Extension Settings
 
-No `contributes.configuration` extension points are implemented.
+Contributes.Command: `markdown-toc.createTOC` "Create Table of Contents"
+
+ActivationEvents: none.
 
 ## Known Issues
 
