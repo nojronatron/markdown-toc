@@ -39,7 +39,7 @@ function activate(context) {
           return null;
         }
 
-        // 3. Create the TOC as a large string.
+        // 3. Create the TOC as a string.
         const capturedDocument = editor.document.getText(
           new vscode.Range(
             firstSecondLevelHeading,

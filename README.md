@@ -7,7 +7,7 @@ Locates all Level 2 headings in the currently selected markdown file and creates
 - Creates a Table of Contents in the currently open markdown file.
 - Links to Level 2 heading IDs are stored in Table of contents.
 - Uses the VSCode Command Palette to insert the new table of contents.
-- Supports `#` character Headings markdown only.
+- Supports `#` character Headings ('Open ATX') markdown.
 
 ## About This Extension
 
@@ -35,19 +35,20 @@ The only dependencies are `vscode ^1.79.0 and those listed in devDependencies in
 
 ## Extension Settings
 
-No `contributes.configuration` extension points are implemented.
+Contributes.Command: `markdown-toc.createTOC` "Create Table of Contents"
+
+ActivationEvents: none.
 
 ## Known Issues
 
-- No support for 'next-line' heading markdown that uses `=` or `-` as Heading level indicators. My intention is to address this in a future release.
+- No support for 'next-line' heading markdown that uses `=` or `-` as Heading level indicators.
+- No support for 'closed atx' style headings.
 
-_Note_: This is not an exhaustive list. See [GitHub Issues List](https://github.com/nojronatron/markdown-toc/issues) for this project repository.
+_Note_: See [GitHub Issues List](https://github.com/nojronatron/markdown-toc/issues) for the most current status.
 
 ## Release Notes
 
-- My first VS Code Extension! :tada:
-- Minimum viable product features implemented.
-- Unit tests and documentation included.
+- Bugfix and feature update.
 
 See [CHANGELOG.md](./CHANGELOG.md) for detailed release notes.
 
@@ -57,4 +58,8 @@ See [CHANGELOG.md](./CHANGELOG.md) for detailed release notes.
 
 Design, code, test, and publisher: Jon Rumsey [GitHub](https://github.com/nojronatron) [LinkedIn](https://www.linkedin.com/in/jonathan-rumsey-wa)
 
-GitIgnore suggestions from [TopTal.com](https://www.toptal.com/developers/gitignore/api/visualstudiocode)
+## References
+
+- Markdown Rules guidance from [DavidAnson's Markdown Lint repo](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md)
+- GitIgnore suggestions from [TopTal.com](https://www.toptal.com/developers/gitignore/api/visualstudiocode)
+- Guidance on how to create a VS Code Extension from [VS Code Docs](https://code.visualstudio.com/api/get-started/your-first-extension)

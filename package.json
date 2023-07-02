@@ -6,7 +6,8 @@
     "type": "git",
     "url": "https://github.com/nojronatron/markdown-toc.git"
   },
-  "version": "0.0.1",
+  "version": "0.1.2",
+  "author": "Jon Rumsey",
   "pricing": "Free",
   "engines": {
     "vscode": "^1.79.0"

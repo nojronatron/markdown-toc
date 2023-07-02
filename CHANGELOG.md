@@ -1,14 +1,31 @@
 # Change Log
 
-All notable changes to the "markdown-toc" extension will be documented in this file.
+All notable changes to the "markdown-toc" extension will be documented in this file, using Sematic Versioning.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for how this file is structured.
+See [Keep a Changelog](http://keepachangelog.com/) for how this file is structured.
 
 ## [Unreleased]
 
+Add:
+
+- Support for 'next line' headings markdown.
+- Support for Closed ATX style headings.
+
+## [0.1.2] - 2023-06-28
+
+Added:
+
+- Support for processing level 2 headers that contain special characters.
+- Added References section to README.
+- Updated Extension Settings section in README.
+
+Fixed:
+
+- Bug: Certain characters trigger invalid link fragment rule.
+
 ## [0.0.1] - 2023-06-16
 
-### Added
+Added:
 
 - Initial release, reached MVP
 - CHANGELOG, README, LICeNSE, and core configuration files to configure dev, build, and test
