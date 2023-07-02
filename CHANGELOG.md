@@ -15,7 +15,13 @@ Add:
 
 Added:
 
-- Support for processing level 2 headers that contain special characters. This also fixes a related bug, and expands on the capability beyond the bug description.
+- Support for processing level 2 headers that contain special characters.
+- Added References section to README.
+- Updated Extension Settings section in README.
+
+Fixed:
+
+- Bug: Certain characters trigger invalid link fragment rule.
 
 ## [0.0.1] - 2023-06-16
 
