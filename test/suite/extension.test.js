@@ -10,6 +10,23 @@ const createTOC = require('../../extension-functions/create-toc');
 suite('Extension Test Suite', () => {
   vscode.window.showInformationMessage('Start all tests.');
 
+  test('Finds alternate second level heading character = (equals sign)', ()=>{
+    let testDocText = '- First Heading\n\n= Second Heading\n\n== Invalid Heading\n\n= Another Second Heading\n';
+    let document = {
+      lineCount: 8,
+      lineAt: function (idx) {
+        return {
+          text: testDocText.split('\n')[idx],
+        };
+      },
+    };
+
+    let topHeading = 0;
+    let expected = 2; // total second level headings using equals signs
+    let actual = findFirstSecondLevelHeading(document, topHeading);
+    assert.strictEqual(actual, expected);
+  });
+
   test('Finds first second level heading', () => {
     let testDocText =
       '# First Heading\n \n## Second Heading\n \n## Third Heading\n \n### Bad Heading\n';
