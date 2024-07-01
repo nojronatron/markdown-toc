@@ -11,16 +11,15 @@
  * @property {boolean} isToc - Indicates whether the heading is a table of contents.
  */
 function getSecondLevelHeading(firstLine, firstLineIdx, secondLine, normalStyle = true) {
-  // const resultObj = { line: -1, text: firstLine, isHash: normalStyle, isToc: false };
-
   if (normalStyle) {
-    resultObj = getHash2LH(firstLine, firstLineIdx, secondLine);
+    return getHash2LH(firstLine, firstLineIdx, secondLine);
   }
-  else {
-    resultObj = getDash2LH(firstLine, firstLineIdx, secondLine);
+  if (!normalStyle) {
+    return getDash2LH(firstLine, firstLineIdx, secondLine);
   }
+
   // no matches so the line of text is something else
-  return resultObj;
+  return { line: -1, text: firstLine, isHash: normalStyle, isToc: false };
 }
 
 /**
@@ -105,8 +104,8 @@ function getDash2LH(firstLine, firstLineIdx, secondLine) {
  * @returns {string} '#' or '-' or '' if not found
  */
 function findExistingStyleCharacter(document) {
-  let startIdx = 0;
-  let lineIdx = 0;
+  // let startIdx = 0;
+  // let lineIdx = 0;
   let newlineCharIdx = document.indexOf('\n');
   let previousText = '';
 
@@ -122,7 +121,7 @@ function findExistingStyleCharacter(document) {
       return '-';
     }
 
-    lineIdx++;
+    // lineIdx++;
     previousText = currentText;
     document = document.substring(newlineCharIdx).trim();
     newlineCharIdx = document.indexOf('\n');
