@@ -7,7 +7,9 @@ Locates all Level 2 headings in the currently selected markdown file and creates
 - Creates a Table of Contents in the currently open markdown file.
 - Links to Level 2 heading IDs are stored in Table of contents.
 - Uses the VSCode Command Palette to insert the new table of contents.
-- Supports `#` character Headings ('Open ATX') markdown.
+- Supports `#` character Headings ('Open ATX') and `=` and `-` characters (alternate syntax) markdown.
+
+See [CHANGELOG.md](./CHANGELOG.md) for details.
 
 ## About This Extension
 
@@ -48,7 +50,7 @@ _Note_: See [GitHub Issues List](https://github.com/nojronatron/markdown-toc/iss
 
 ## Release Notes
 
-- Bugfix and feature update.
+This release adds the ability to detect both ATX and Alternate style level 1 and level 2 Headings. In both cases, the generated Table of Contents anchors link fragments to the headings in the markdown document.
 
 See [CHANGELOG.md](./CHANGELOG.md) for detailed release notes.
 
