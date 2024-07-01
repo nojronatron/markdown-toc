@@ -1,7 +1,5 @@
-const vscode = require('vscode');
-
 /**
- * Finds the top heading in the given document.
+ * Finds the top level one heading (H1) in a given markdown document.
  *
  * @param {string} document - The document to search for the top heading.
  * @returns {Object} - An object representing the result of processing.
@@ -12,7 +10,6 @@ const vscode = require('vscode');
  */
 module.exports = function findTopHeading(document) {
   const resultObj = { line: -1, text: '', isHash: true, isToc: false };
-  let startIdx = 0;
   let lineIdx = 0;
   // 1. get index of first newline character
   let newlineCharIdx = document.indexOf('\n');
