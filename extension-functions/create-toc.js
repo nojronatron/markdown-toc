@@ -1,7 +1,7 @@
 /**
  * Generates a table of contents (TOC) based on the captured level 2 headings.
  *
- * @param {Array<{line, headingText, isHash}>} capturedL2Headings - An array of captured level 2 headings.
+ * @param {Array<{line, text, isHash}>} capturedL2Headings - An array of captured level 2 headings.
  * @returns {string} The generated table of contents.
  */
 module.exports = function createTOC(capturedL2Headings) {
@@ -17,11 +17,11 @@ module.exports = function createTOC(capturedL2Headings) {
   capturedL2Headings.forEach((item) => {
     // Extract the level2 heading text, removing
     // characters not allowed in link fragments
-    const titleOnly = item.headingText.replaceAll(/(?:[!@$%^&*\(\)\[\]\{\}\:';\.,~`+=\\"\|\/?])/g, '')
-                                      .trim();
+    const titleOnly = item.text.replaceAll(/(?:[!@$%^&*\(\)\[\]\{\}\:';\.,~`+=\\"\|\/?])/g, '')
+                               .trim();
     // Convert the heading text to kebab case
-    const loweredKebabCase = item.headingText.toLowerCase()
-                                             .replace(/\s/g, '-');
+    const loweredKebabCase = item.text.toLowerCase()
+                                      .replace(/\s/g, '-');
     // compose the link fragement title and anchor element
     const linkFragment = `- [${titleOnly}](#${loweredKebabCase})\n`;
     // append the link fragment to the table of contents string
