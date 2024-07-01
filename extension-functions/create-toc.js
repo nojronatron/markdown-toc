@@ -1,37 +1,34 @@
 /**
- * Function creates and returns a String representation of a table of contents.
- * @param {String} capturedDocument The document text captured from the first second level heading to the end of the document.
- * @returns String The table of contents.
+ * Generates a table of contents (TOC) based on the captured level 2 headings.
+ *
+ * @param {Array<{line, headingText, isHash}>} capturedL2Headings - An array of captured level 2 headings.
+ * @returns {string} The generated table of contents.
  */
-module.exports = function createTOC(capturedDocument) {
-  let result = '';
+module.exports = function createTOC(capturedL2Headings) {
+  let tableOfContentsHeading = 'Table of Contents\n';
+  let tableOfContentsString = '';
 
-  const capturedL2Headings = capturedDocument.match(/^#{2}\s(?:.+)+$/gm);
-
-  if (!capturedL2Headings || capturedL2Headings.Length == 0) {
-    return result;
+  if (capturedL2Headings[0].isHash) {
+    tableOfContentsString = `## ${tableOfContentsHeading}\n`;  
+  } else {
+    tableOfContentsString = `${tableOfContentsHeading}-----------------\n\n`;
   }
-
-  let tocContents = '## Table of Contents\n\n';
-
+  
   capturedL2Headings.forEach((item) => {
-    // Extract the level2 heading text
-    const titleOnly = `${item.substring(3)}`;
-    // strip-out characters that cause link fragments to fail
-    const cleanedTitle = titleOnly.replaceAll(
-      /(?:[!@$%^&*\(\)\[\]\{\}\:';\.,~`+=\\"\|\/?])/g,
-      ''
-    );
-    // trim any starting or trailing whitespace
-    const trimmedTitle = cleanedTitle.trim();
-    // Create the kebab-case version of the title
-    const loweredKebabCase = trimmedTitle.toLowerCase().replace(/\s/g, '-');
-    // Create the TOC entry
-    const tocEntry = `- [${titleOnly}](#${loweredKebabCase})\n`;
-    // Add to the tocContents string
-    tocContents += tocEntry;
+    // Extract the level2 heading text, removing
+    // characters not allowed in link fragments
+    const titleOnly = item.headingText.replaceAll(/(?:[!@$%^&*\(\)\[\]\{\}\:';\.,~`+=\\"\|\/?])/g, '')
+                                      .trim();
+    // Convert the heading text to kebab case
+    const loweredKebabCase = item.headingText.toLowerCase()
+                                             .replace(/\s/g, '-');
+    // compose the link fragement title and anchor element
+    const linkFragment = `- [${titleOnly}](#${loweredKebabCase})\n`;
+    // append the link fragment to the table of contents string
+    tableOfContentsString += linkFragment;
   });
 
-  tocContents += '\n';
-  return tocContents;
+  // be kind, leave a blank line after the table of contents
+  tableOfContentsString += '\n';
+  return tableOfContentsString;
 };
