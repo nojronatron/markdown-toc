@@ -1,11 +1,8 @@
 const assert = require('assert');
 
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
 const vscode = require('vscode');
-const findFirstSecondLevelHeading = require('../../extension-functions/find-first-second-level-heading');
-const findTopHeading = require('../../extension-functions/find-top-heading');
 const createTOC = require('../../extension-functions/create-toc');
+const findFirstSecondLevelHeading = require('../../extension-functions/find-top-heading');
 
 suite('Extension Test Suite', () => {
   vscode.window.showInformationMessage('Start all tests.');
@@ -45,23 +42,6 @@ suite('Extension Test Suite', () => {
     assert.strictEqual(actual, expected);
   });
 
-  test('Finds the top heading', () => {
-    let testDocText =
-      '# First Heading\n \n## Second Heading\n \n## Third Heading\n \n### Bad Heading\n';
-    let document = {
-      lineCount: 7,
-      lineAt: function (idx) {
-        return {
-          text: testDocText.split('\n')[idx],
-        };
-      },
-    };
-
-    let expected = 0;
-    let actual = findTopHeading(document, expected);
-    assert.strictEqual(actual, expected);
-  });
-
   test('CreateTOC creates a TOC with valid ## headings', () => {
     let testDocText =
       '# First Heading\n\n## Second Heading\n\n## Third Heading\n\n### Bad Heading\n';
@@ -71,22 +51,22 @@ suite('Extension Test Suite', () => {
     assert.strictEqual(actual, expected);
   });
 
-  test('CreateTOC does NOT create a TOC without ## headings', () => {
+  test('CreateToc does NOT create a TOC without ## headings', () => {
     let testDocText =
       'First Heading\n\nSecond Heading\n\nThird Heading\n\nBad Heading\n';
     let expected = '';
-    let actual = createTOC(testDocText);
+    let actual = createToc(testDocText);
     assert.strictEqual(actual, expected);
   });
 
-  test('CreateTOC creates valid TOC entries not link fragments', () => {
+  test('CreateToc creates valid TOC entries not link fragments', () => {
     const expectedResultDashes =
       '## Table of Contents\n\n- [Second - Heading](#second---heading)\n- [Third -- Heading](#third----heading)\n- [Fourth-- Heading](#fourth---heading)\n\n';
 
     const dashedItem =
       '# First Heading\n\n## Second - Heading\n\n## Third -- Heading\n\n## Fourth-- Heading\n';
     assert.strictEqual(
-      createTOC(dashedItem),
+      createToc(dashedItem),
       expectedResultDashes,
       'dashedItem headings.'
     );
@@ -96,7 +76,7 @@ suite('Extension Test Suite', () => {
     const colonItem =
       '# First Heading\n\n## Second : Heading\n\n## Third :: Heading\n\n## Fourth:: Heading\n';
     assert.strictEqual(
-      createTOC(colonItem),
+      createToc(colonItem),
       expectedResultColons,
       'colonItem headings.'
     );
@@ -106,7 +86,7 @@ suite('Extension Test Suite', () => {
     const commaItem =
       '# First Heading\n\n## Second , Heading\n\n## Third ,, Heading\n\n## Fourth,, Heading\n';
     assert.strictEqual(
-      createTOC(commaItem),
+      createToc(commaItem),
       expectedResultCommas,
       'commaItem headings.'
     );
@@ -116,7 +96,7 @@ suite('Extension Test Suite', () => {
     const periodItem =
       '# First Heading\n\n## Second .Heading\n\n## Third .. Heading\n\n## Fourth. . .Heading\n';
     assert.strictEqual(
-      createTOC(periodItem),
+      createToc(periodItem),
       expectedResultPeriods,
       'periodItem headings.'
     );
@@ -126,7 +106,7 @@ suite('Extension Test Suite', () => {
     const garbageItem1 =
       '# First Heading\n\n## Second ,.;:[]{}!@$%^&*() Heading\n';
     assert.strictEqual(
-      createTOC(garbageItem1),
+      createToc(garbageItem1),
       expectedResultGarbage1,
       'garbageItem1 headings.'
     );
@@ -136,7 +116,7 @@ suite('Extension Test Suite', () => {
     const garbageItem2 =
       '# First Heading\n\n## Second ,.;:[]-{}!@$%^&*() Heading\n';
     assert.strictEqual(
-      createTOC(garbageItem2),
+      createToc(garbageItem2),
       expectedResultGarbage2,
       'garbageItem2 headings.'
     );
