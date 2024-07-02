@@ -6,7 +6,7 @@ See [Keep a Changelog](http://keepachangelog.com/) for how this file is structur
 
 ## [Unreleased]
 
-## [0.2.1] - 2024-06-27
+## [0.2.1] - 2024-07-01
 
 Added:
 
