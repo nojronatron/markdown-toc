@@ -30,6 +30,7 @@ function getSecondLevelHeading(firstLine, firstLineIdx, secondLine, normalStyle 
  * @returns {object} {line, text, isHash, isToc}
  */
 function getHash2LH(firstLine, firstLineIdx, secondLine) {
+  // This function will not consistently find L2 headings if either line begins with a space
   if (firstLine.startsWith('## ')) {
     if (firstLine.match(/^(?:## Table of Contents)\s*?$/m)) {
       // do not count an existing table of contents
@@ -42,6 +43,7 @@ function getHash2LH(firstLine, firstLineIdx, secondLine) {
     }
 
     if (secondLine.length === 0
+        || secondLine.match(/^\s$/)
         || secondLine.match(/^(?:[a-zA-Z0-9_] *?)+$/m)) {
       const firstLineText = firstLine.substring(2, firstLine.length).trim();
       return {
@@ -81,9 +83,10 @@ function getDash2LH(firstLine, firstLineIdx, secondLine) {
     }
   
     if (firstLine.match(/^(?:[a-zA-Z0-9_] *?)+$/m)) {
+      const firstLineText = firstLine.trim();
       return {
         line: firstLineIdx,
-        text: firstLine,
+        text: firstLineText,
         isHash: false,
         isToc: false,
       };
@@ -104,8 +107,6 @@ function getDash2LH(firstLine, firstLineIdx, secondLine) {
  * @returns {string} '#' or '-' or '' if not found
  */
 function findExistingStyleCharacter(document) {
-  // let startIdx = 0;
-  // let lineIdx = 0;
   let newlineCharIdx = document.indexOf('\n');
   let previousText = '';
 
@@ -121,7 +122,6 @@ function findExistingStyleCharacter(document) {
       return '-';
     }
 
-    // lineIdx++;
     previousText = currentText;
     document = document.substring(newlineCharIdx).trim();
     newlineCharIdx = document.indexOf('\n');
