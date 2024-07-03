@@ -45,6 +45,7 @@ ActivationEvents: none.
 
 - If an H1 equivalent standard heading is not followed by a newline character, it will be ignored. In this case, a Linter should be used and the Markdown should be reformatted to force inclusion of end-of-line characters at the end of a document.
 - Markdown lines that start with a space may cause Create ToC to miss one or more headers. Set your Markdown Linter config to run automatically when saving the file avoid this scenario.
+- When headings with non-word or non-number characters (commas, parentheses, etc) are processed by Create Markdown TOC a link fragment will be added to the generated Table of Contents. There are many instances where the generated link will not function. Avoid this situation by sticking with numbers, letters, and space characters to create well-formed, readable headings.
 
 _Note_: See [GitHub Issues List](https://github.com/nojronatron/markdown-toc/issues) for the most current status.
 
