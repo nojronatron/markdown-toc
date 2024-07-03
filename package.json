@@ -2,15 +2,17 @@
   "name": "jr-markdowntoc-vscode",
   "displayName": "Create Markdown TOC",
   "description": "Adds a table of contents to your markdown file.",
+  "icon": "./images/jrsoftware-logo-128x128.png",
+  "galleryBanner.color": "#424BB2",
   "repository": {
     "type": "git",
     "url": "https://github.com/nojronatron/markdown-toc.git"
   },
-  "version": "0.2.1",
+  "version": "0.3.1",
   "author": "Jon Rumsey",
   "pricing": "Free",
   "engines": {
-    "vscode": "^1.79.0"
+    "vscode": "^1.90.0"
   },
   "publisher": "jon-rumsey-dev",
   "categories": [
@@ -29,7 +31,9 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "deploy": "vsce publish --yarn",
+    "package": "vsce package --pre-release"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
@@ -38,6 +42,7 @@
     "@types/vscode": "^1.90.0",
     "@vscode/test-cli": "^0.0.9",
     "@vscode/test-electron": "^2.3.8",
+    "@vscode/vsce": "^2.29.0",
     "eslint": "^8.41.0",
     "glob": "^10.4.2",
     "mocha": "^10.2.0",
