@@ -1,0 +1,28 @@
+on:
+  push:
+    branches: ['staging']
+
+jobs:
+  build-test-package:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+        package_dir: ${{ github.workspace }}/markdown-toc-pkg
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install Node.js ${{ matrix.node-version }}
+      uses: actions.setup-node@4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npn'
+    - run: npm install
+    - run: npm run test
+    - run: npm run package
+      working-directory: ${{ matrix.package_dir }}
+    - name: Upload artifact to ${{ matrix.package_dir }}
+      uses: actions/upload-artifact@v2
+      with:
+        path: ${{ matrix.package_dir }}
