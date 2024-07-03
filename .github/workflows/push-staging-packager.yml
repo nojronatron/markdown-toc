@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         node-version: [22.x]
-        package_dir: ${{ github.workspace }}//markdown-toc-pkg
+        package_dir: ${{ github.workspace }}
 
     steps:
     - name: Checkout
