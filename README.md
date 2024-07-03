@@ -1,13 +1,15 @@
 # Create Markdown TOC README
 
-Locates all Level 2 headings in the currently selected markdown file and creates a clean, orderly table of contents near the top of the document. As expected, the table of contents entries link to all discovered Level 2 heading labels within the doc, simplifying navigation.
+Locates all Level 2 headings in the currently selected markdown file and creates a clean, orderly table of contents near the top of the document. As expected, the table of contents entries link to all discovered Level 2 heading labels within the document, simplifying navigation.
 
 ## Features
 
-- Creates a Table of Contents in the currently open markdown file.
-- Links to Level 2 heading IDs are stored in Table of contents near top of document.
-- Uses the VSCode Command Palette to insert the new table of contents.
+- Creates a table of contents in the currently open markdown file just prior to the 1st Level 2 heading.
+- Links to Level 2 headings are stored in the generated table of contents.
 - Supports standard Headings (prefixed with `#`) and alternate Headings syntax (`=` or `-` characters on nextline following heading title).
+- Will try to put the generated Table of Contents near the top of the document if there is no Level 1 Heading.
+- Attempts to be non-destructive but will strip-out Heading characters that link fragments do not support.
+- Uses the VSCode Command Palette to insert the new table of contents.
 
 See [CHANGELOG.md](./CHANGELOG.md) for details.
 
@@ -33,7 +35,7 @@ Select the command and a Table of Contents will be created with Heading IDs link
 
 ## Requirements
 
-The only dependencies are `vscode ^1.79.0 and those listed in devDependencies in the package.json file in my [GitHub Project Repo](https://github.com/nojronatron/markdown-toc/).
+The only dependencies are `vscode ^1.90.0 and those listed in devDependencies in the package.json file in my [GitHub Project Repo](https://github.com/nojronatron/markdown-toc/).
 
 ## Extension Settings
 
@@ -43,25 +45,13 @@ ActivationEvents: none.
 
 ## Known Issues
 
-- If an H1 equivalent standard heading is not followed by a newline character, it will be ignored. In this case, a Linter should be used and the Markdown should be reformatted to force inclusion of end-of-line characters at the end of a document.
-- Markdown lines that start with a space may cause Create ToC to miss one or more headers. Set your Markdown Linter config to run automatically when saving the file avoid this scenario.
-- When headings with non-word or non-number characters (commas, parentheses, etc) are processed by Create Markdown TOC a link fragment will be added to the generated Table of Contents. There are many instances where the generated link will not function. Avoid this situation by sticking with numbers, letters, and space characters to create well-formed, readable headings.
+- Always use a Markdown Linter before running this tool for the best results.
+- A Level 1 Heading must be followed by a newline character or it will be ignored (note: Table of Contents generation does not depend on any Level 1 heading specifically).
+- Headings that start with a space may cause Create ToC to ignore the heading.
+- Headings that contain characters other than alpha-numerics will likely be processed _but_ the generated Table of Contents link might not be active.
+- Skipped level 2 headings will not be shown in the generated Table of Contents.
 
 _Note_: See [GitHub Issues List](https://github.com/nojronatron/markdown-toc/issues) for the most current status.
-
-## Development
-
-1. Development is possible in Windows, WSL 2.x, or pure Linux (Ubuntu 22.x recommended).
-2. Fork this repo, clone, and create your development branch.
-3. `npm i` to install dependencies.
-4. `npm run vscodeTest` to execute existing unit tests (Windows).
-5. Open `Run and Debug` in VSCode and click _Run Extension_ to interact in debug mode (Windows and Linux). Also, selecting _Extension Tests_ from the Run and Debug Configuration should run the tests similar to step 4.
-
-_Note_: Executing unit tests from a Windows or Linux shell might fail with an error 'failed to connect to the remote extension host server'. Following [Microsoft VSCode Issue# 187360](https://github.com/microsoft/vscode/issues/187360), delete `~.vscode-server` directory and child items and then restart VSCode. It might also be necessary to take additional actions (see Note2 below).
-
-_Note2_: Executing unit tests in a WSL environment shell might fail with an error 'Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory Exit code: SIGTRAP'. Additionally, when building in GitHub Actions, there is no XServer (presumedly for displaying VSCode/electron UI) so the Action will fail to run tests. Because WSL does not boot-up Linux as it would in a fully-deployed system (e.g. hardware or virtual machine), there is no DBUS systemd/systemctl process running. Internet searches return fairly old references to this problem in WSL 1.x and mostly with other (not Ubuntu) distros. The work-arounds for local testing are to use VSCode Run and Debug tool with the requisite configuration entries in `vscode/task.json` and `vscode/launch.json` when using Linux, or to use a Windows machine to execute `npm run test`. There are probably better work arounds and I will employ them in scripts and CI when they are discovered.
-
-_Note3_: Executing unit tests from within VSCode as described in step 5 above works as of v0.2.1.
 
 ## Release Notes
 
