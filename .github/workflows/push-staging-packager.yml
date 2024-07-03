@@ -11,7 +11,6 @@ jobs:
     strategy:
       matrix:
         node-version: [22.x]
-        package_dir: ${{ github.workspace }}
 
     steps:
     - name: Checkout
@@ -24,8 +23,9 @@ jobs:
     - run: npm install
     - run: npm run test
     - run: npm run package
-      working-directory: ${{ matrix.package_dir }}
-    - name: Upload artifact to ${{ matrix.package_dir }}
-      uses: actions/upload-artifact@v4
+      working-directory: ${{ github.workspace }}
+    - uses: actions/upload-artifact@v4
       with:
-        path: ${{ matrix.package_dir }}
+        name: markdowntoc-package
+        path: jr-markdowntoc-vscode-?.?.?.vsix
+        if-no-files-found: 'error'
