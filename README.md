@@ -7,7 +7,7 @@ Locates all Level 2 headings in the currently selected markdown file and creates
 - Creates a Table of Contents in the currently open markdown file.
 - Links to Level 2 heading IDs are stored in Table of contents near top of document.
 - Uses the VSCode Command Palette to insert the new table of contents.
-- Supports `#` character Headings ('Open ATX') and `=` and `-` characters (alternate syntax) markdown.
+- Supports standard Headings (prefixed with `#`) and alternate Headings syntax (`=` or `-` characters on nextline following heading title).
 
 See [CHANGELOG.md](./CHANGELOG.md) for details.
 
@@ -43,29 +43,28 @@ ActivationEvents: none.
 
 ## Known Issues
 
-- If an H1 equivalent standard heading is not followed by a newline character, it will be ignored. In this case, a Linter should be used and the Markdown should be reformatted to meet minimum standard headings rules.
-- Markdown lines start start with a space, whether a header or following a header, may cause Create ToC to miss one or more headers. It is a good practice to use a Markdown Linter. Recommend setting a Linter to run automatically when saving the file to avoid this potentially surprising result.
+- If an H1 equivalent standard heading is not followed by a newline character, it will be ignored. In this case, a Linter should be used and the Markdown should be reformatted to force inclusion of end-of-line characters at the end of a document.
+- Markdown lines that start with a space may cause Create ToC to miss one or more headers. Set your Markdown Linter config to run automatically when saving the file avoid this scenario.
 
 _Note_: See [GitHub Issues List](https://github.com/nojronatron/markdown-toc/issues) for the most current status.
 
 ## Development
 
-1. Development should be possible in Windows, Windows Subsystem for Linux or pure Linux (Ubuntu 22.x recommended) environment.
+1. Development is possible in Windows, WSL 2.x, or pure Linux (Ubuntu 22.x recommended).
 2. Fork this repo, clone, and create your development branch.
 3. `npm i` to install dependencies.
-4. `npm run vscodeTest` to execute existing unit tests.
-5. Open `Run and Debug` in VSCode and click _Run Extension_ to interact in debug mode. Also, selecting _Extension Tests_ from the Run and Debug Configuration should run the tests similar to step 4.
-6. Commit changes, add unit tests, perform manual testing, and push code to create a new PR. Be sure to add Tasks completed, additional context, and link to an existing Issue this PR solves (if there isn't one, create it before generating a new PR).
+4. `npm run vscodeTest` to execute existing unit tests (Windows).
+5. Open `Run and Debug` in VSCode and click _Run Extension_ to interact in debug mode (Windows and Linux). Also, selecting _Extension Tests_ from the Run and Debug Configuration should run the tests similar to step 4.
 
-_Note_: Executing unit tests from shell might fail with an error 'failed to connect to the remote extension host server'. Following [Microsoft VSCode Issue# 187360](https://github.com/microsoft/vscode/issues/187360), delete `~.vscode-server` directory and child items and then restart VSCode. It might also be necessary to install additional Extensions (see `.vscode/extensions.json`), and set additional configuration settings (see `.vscode/settings.json`).
+_Note_: Executing unit tests from a Windows or Linux shell might fail with an error 'failed to connect to the remote extension host server'. Following [Microsoft VSCode Issue# 187360](https://github.com/microsoft/vscode/issues/187360), delete `~.vscode-server` directory and child items and then restart VSCode. It might also be necessary to take additional actions (see Note2 below).
 
-_Note2_: Executing unit tests in a WSL environment from shell might fail with an error 'Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory Exit code: SIGTRAP'. Because WSL does not boot-up Linux as it would in a fully-deployed system (e.g. hardware or virtual machine), there is no DBUS systemd/systemctl process running. Internet searches return fairly old references to this problem in WSL 1.x and mostly with other (not Ubuntu) distros, so it is not clear what the answer is.
+_Note2_: Executing unit tests in a WSL environment shell might fail with an error 'Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory Exit code: SIGTRAP'. Additionally, when building in GitHub Actions, there is no XServer (presumedly for displaying VSCode/electron UI) so the Action will fail to run tests. Because WSL does not boot-up Linux as it would in a fully-deployed system (e.g. hardware or virtual machine), there is no DBUS systemd/systemctl process running. Internet searches return fairly old references to this problem in WSL 1.x and mostly with other (not Ubuntu) distros. The work-arounds for local testing are to use VSCode Run and Debug tool with the requisite configuration entries in `vscode/task.json` and `vscode/launch.json` when using Linux, or to use a Windows machine to execute `npm run test`. There are probably better work arounds and I will employ them in scripts and CI when they are discovered.
 
-_Note3_: Executing unit tests from within VSCode as described in step 5 above are working as of v0.2.1.
+_Note3_: Executing unit tests from within VSCode as described in step 5 above works as of v0.2.1.
 
 ## Release Notes
 
-This release adds the ability to detect both ATX and Alternate style level 1 and level 2 Headings. In both cases, the generated Table of Contents anchors link fragments to the headings in the markdown document.
+This release adds the ability to detect both Standard style and Alternate style level 1 and level 2 headings. In both cases, the generated Table of Contents anchors link fragments to the headings near the top of the existing markdown document.
 
 See [CHANGELOG.md](./CHANGELOG.md) for detailed release notes.
 
