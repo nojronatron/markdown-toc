@@ -1,10 +1,13 @@
+name: Staging Packager
+
 on:
-  push:
+  pull_request:
     branches: ['staging']
 
 jobs:
   build-test-package:
     runs-on: windows-latest
+
     strategy:
       matrix:
         node-version: [22.x]
@@ -14,10 +17,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Install Node.js ${{ matrix.node-version }}
-      uses: actions.setup-node@4
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npn'
+        cache: 'npm'
     - run: npm install
     - run: npm run test
     - run: npm run package
