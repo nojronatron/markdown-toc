@@ -1,0 +1,38 @@
+name: Staging Packager
+
+on:
+  push:
+    branches: ['pub-pre-release']
+
+jobs:
+  build-test-package:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm install
+    - run: npm run test
+    - name: package with vsce
+      run: |
+        npm install -g vsce
+        vsce package
+      working-directory: ${{ github.workspace }}
+    - name: upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: markdowntoc-package
+        path: jr-markdowntoc-vscode-?.?.?.vsix
+        if-no-files-found: 'error'
+    - name: publish to marketplace
+      run: |
+        vsce publish -p ${{ secrets.VSCE_PAT}} --pre-release
