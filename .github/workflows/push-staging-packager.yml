@@ -22,10 +22,17 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: npm run test
-    - run: npm run package
+    - name: package with vsce
+      run: |
+        npm install -g vsce
+        vsce package
       working-directory: ${{ github.workspace }}
-    - uses: actions/upload-artifact@v4
+    - name: upload build artifact
+      uses: actions/upload-artifact@v4
       with:
         name: markdowntoc-package
         path: jr-markdowntoc-vscode-?.?.?.vsix
         if-no-files-found: 'error'
+    - name: publish to marketplace
+      run: |
+        vsce publish -p ${{ secrets.VSCE_PAT}} --pre-release
