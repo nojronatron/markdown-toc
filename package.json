@@ -2,7 +2,7 @@
   "name": "jr-markdowntoc-vscode",
   "displayName": "Create Markdown TOC",
   "description": "Adds a table of contents to your markdown file.",
-  "icon": "./images/jrsoftware-logo-128x128.png",
+  "icon": "images/jrsoftware-logo-128x128.png",
   "galleryBanner.color": "#424BB2",
   "repository": {
     "type": "git",
