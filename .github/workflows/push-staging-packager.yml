@@ -2,7 +2,7 @@ name: Staging Packager
 
 on:
   push:
-    branches: ['dev-staging-pack-pub']
+    branches: ['pub-pre-release']
 
 jobs:
   build-test-package:
