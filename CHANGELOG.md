@@ -6,10 +6,20 @@ See [Keep a Changelog](http://keepachangelog.com/) for how this file is structur
 
 ## [Unreleased]
 
-Add:
+## [0.2.1] - 2024-07-01
 
-- Support for 'next line' headings markdown.
-- Support for Closed ATX style headings.
+Added:
+
+- Support for 'next line' headings characters `=` and `-`.
+
+```markdown
+Top Level Heading
+=
+
+Second Level Heading
+-
+
+```
 
 ## [0.1.2] - 2023-06-28
 

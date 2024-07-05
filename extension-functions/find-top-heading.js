@@ -1,16 +1,52 @@
 /**
- * Method to find the top heading of the page.
- * @param {vscode.TextEditor.document} document The active text editor.
- * @returns Number The line number of the top 1st Level Heading of the page.
+ * Finds the top level one heading (H1) in a given markdown document.
+ *
+ * @param {string} document - The document to search for the top heading.
+ * @returns {Object} - An object representing the result of processing.
+ * @property {number} line - The line number of the top heading.
+ * @property {string} text - The text of the top heading.
+ * @property {boolean} isHash - Indicates whether the top heading is in normal style (using '##') or alternative style (using '=').
+ * @property {boolean} isToc - Indicates whether the top heading is a table of contents.
  */
 module.exports = function findTopHeading(document) {
-  let topHeading = 0;
-  for (let i = 0; i < document.lineCount; i++) {
-    const line = document.lineAt(i);
-    if (line.text.startsWith('# ')) {
-      topHeading = i;
-      break;
+  const resultObj = { line: -1, text: '', isHash: true, isToc: false };
+  let lineIdx = 0;
+  // 1. get index of first newline character
+  let newlineCharIdx = document.indexOf('\n');
+  let previousText = '';
+
+  // 6. continue until index of newline character is -1
+  while (newlineCharIdx > -1) {
+    // 3. substring from startIdx to index of newline character
+    let currentText = document.substring(0, newlineCharIdx).trim();
+
+    // 4a. if substring starts with '# ' and return with updated resultObj
+    if (currentText.startsWith('# ')) {
+      resultObj.line = lineIdx;
+      resultObj.text = currentText;
+      return resultObj;
     }
+
+    // 4b. if substring starts with '=' and previous line has text and return with updated resultObj
+    if (currentText .startsWith('=')) {
+      if (previousText.match(/^(?:[a-zA-Z0-9_] *?)+$/m)) {
+          resultObj.line = lineIdx;
+          resultObj.text = previousText;
+          resultObj.isHash = false;
+          return resultObj;
+      }
+    }
+
+    // 5. if not, increment index to idx of newline character and repeat from step 1
+    lineIdx++;
+    // store the currentText as previous value for alternate heading style detection
+    previousText = currentText;
+    // remove currentText from document to navigate forward
+    document = document.substring(newlineCharIdx).trim();
+    // reset newlineCharIdx to new index of newline character
+    newlineCharIdx = document.indexOf('\n');
   }
-  return topHeading;
+
+  // 2. if no newline character return resultObj
+  return resultObj;
 };
