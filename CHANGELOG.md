@@ -6,6 +6,17 @@ See [Keep a Changelog](http://keepachangelog.com/) for how this file is structur
 
 ## [Unreleased]
 
+## [0.3.1] - 2024-09-TBD
+
+Added:
+
+- Heading Text used in generatd Table of Contents will only be altered if unsupported characters are included.
+- Multiple unit tests for better code coverage.
+
+Bugfixes:
+
+- Table of Contents created invalid link fragments in some cases.
+
 ## [0.2.1] - 2024-07-01
 
 Added:
