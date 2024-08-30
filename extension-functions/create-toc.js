@@ -1,3 +1,7 @@
+const { getTitleOnly, 
+         getLoweredKebabCase, 
+         getLinkFragment } = require('./process-headings');
+
 /**
  * Generates a table of contents (TOC) based on the captured level 2 headings.
  *
@@ -15,16 +19,10 @@ module.exports = function createTOC(capturedL2Headings) {
   }
   
   capturedL2Headings.forEach((item) => {
-    // Extract the level2 heading text, removing
-    // characters not allowed in link fragments
-    const titleOnly = item.text.replaceAll(/(?:[!@$%^&*\(\)\[\]\{\}\:';\.,~`+=\\"\|\/?])/g, '')
-                               .trim();
-    // Convert the heading text to kebab case
-    const loweredKebabCase = item.text.toLowerCase()
-                                      .replace(/\s/g, '-');
-    // compose the link fragement title and anchor element
-    const linkFragment = `- [${titleOnly}](#${loweredKebabCase})\n`;
-    // append the link fragment to the table of contents string
+    // call external modules to do this work
+    const titleOnly = getTitleOnly(item.text);
+    const loweredKebabCase = getLoweredKebabCase(titleOnly);
+    const linkFragment = getLinkFragment(titleOnly, loweredKebabCase);
     tableOfContentsString += linkFragment;
   });
 
