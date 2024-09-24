@@ -32,7 +32,7 @@ suite('createTOC Module tests', () => {
     const arrayOfHeadings1 = [headings1a, headings1b, headings1c, headings1d];
     const actualToc1 = createTOC(arrayOfHeadings1);
 
-    assert.strictEqual(actualToc1, expectedToc1);
+    assert.strictEqual(actualToc1, expectedToc1, 'The actual Link Fragments do not match the expected Link Fragments');
   });
 
   test('createTOC generates a table of contents based on an array of headings and the alternate heading style character', ()=>{
