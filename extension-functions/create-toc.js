@@ -9,24 +9,32 @@ const { getTitleOnly,
  * @returns {string} The generated table of contents.
  */
 module.exports = function createTOC(capturedL2Headings) {
-  let tableOfContentsHeading = 'Table of Contents\n';
-  let tableOfContentsString = '';
+  let tableOfContentsHeading = 'Table of Contents';
+  let tocString = '';
+  let tocPrefix = '';
+  let tocSuffix = '';
 
   if (capturedL2Headings[0].isHash) {
-    tableOfContentsString = `## ${tableOfContentsHeading}\n`;  
+    tocPrefix = `## `;
+    
+    if (capturedL2Headings[0].isClosedAtx) {
+      tocSuffix = ` ##`;
+    }
   } else {
-    tableOfContentsString = `${tableOfContentsHeading}-----------------\n\n`;
+    tocSuffix = `\n-----------------`;
   }
-  
+
+  tocString = `${tocPrefix}${tableOfContentsHeading}${tocSuffix}\n\n`;
+
   capturedL2Headings.forEach((item) => {
     // call external modules to do this work
     const titleOnly = getTitleOnly(item.text);
     const loweredKebabCase = getLoweredKebabCase(titleOnly);
     const linkFragment = getLinkFragment(titleOnly, loweredKebabCase);
-    tableOfContentsString += linkFragment;
+    tocString += linkFragment;
   });
 
   // be kind, leave a blank line after the table of contents
-  tableOfContentsString += '\n';
-  return tableOfContentsString;
+  tocString += '\n';
+  return tocString;
 };
