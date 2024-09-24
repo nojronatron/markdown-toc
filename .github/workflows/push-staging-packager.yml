@@ -34,7 +34,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: markdowntoc-package
-        path: ${{ secrets.JR_VSIX_FILENAME_VER }}.vsix
+        path: ${{ env.JR_VSIX_FILENAME_VERSION }}.vsix
         if-no-files-found: 'error'
     - name: publish to marketplace
       if: success()
