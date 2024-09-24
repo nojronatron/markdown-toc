@@ -1,12 +1,40 @@
 # Change Log
 
-All notable changes to the "markdown-toc" extension will be documented in this file, using Sematic Versioning.
+All notable changes to the "markdown-toc" extension will be documented in this file using Sematic Versioning.
 
 See [Keep a Changelog](http://keepachangelog.com/) for how this file is structured.
 
 ## [Unreleased]
 
-## [0.3.1] - 2024-09-TBD
+## [0.4.0] - 2024-09-24
+
+Added:
+
+- Support for Closed ATX Style Headings.
+
+```markdown
+# Top Level Heading #
+
+Lorem ipsum...
+
+## Table of Contents ##
+
+- [Second Level Heading](#second-level-heading)
+
+## Second Level Heading ##
+
+Dolor sit amet...
+
+```
+
+Bugfixes:
+
+- Generated Table of Contents should use same style as first discovered heading.
+- Comma and period characters cause invalid link fragment generation.
+- Slash character in a heading causes invalid link fragment generation.
+- Undocumented: Space characters in Heading causes invalid link fragment generation.
+
+## [0.3.1] - 2024-07-22
 
 Added:
 
