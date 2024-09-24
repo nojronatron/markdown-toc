@@ -1,5 +1,5 @@
 /**
- * Extracts the level2 heading text and removes illegal characters.
+ * Extracts the level2 heading text and removes '<', '>', and ':' characters.
  * 
  * @param {string} itemText - The input text to process.
  * @returns {string} The processed and trimmed title.
