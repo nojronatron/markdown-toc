@@ -6,8 +6,9 @@ Locates all Level 2 headings in the currently selected markdown file and creates
 
 - Creates a table of contents in the currently open markdown file just prior to the first Level 2 heading.
 - Links to Level 2 headings are stored in the generated table of contents.
-- Supports standard Headings that are only prefixed with `#` character(s).
-- Supports alternate Headings syntax using `=` or `-` characters on nextline following heading title.
+- Supports standard Headings (Open ATX) that are only prefixed with `#` character(s).
+- Support Closed ATX Headings prefixed and suffixed with `#` character(s).
+- Supports alternate (Next Line) Headings syntax using `=` or `-` characters on nextline following heading title.
 - Generated Table of Contents uses same style of heading (Open, closed, ATX, etc) that it detects within your document.
 - If there is no first level heading, the generated Table of Contents will be inserted near the top of the document.
 - Unsupported link-fragment characters are removed.
@@ -63,6 +64,7 @@ ActivationEvents: none.
 - Headings that start with a space may cause Create ToC to ignore the heading.
 - Skipped level 2 headings will not be shown in the generated Table of Contents.
 - Using multiple headings types will produce unexpected results.
+- A user can create a Heading with many spaces in it that will Lint without error. Create ToC will generate a valid, Linted Link Fragment for that "spacey heading" _but_ the link will be dead.
 
 _Note_: See [GitHub Issues List](https://github.com/nojronatron/markdown-toc/issues) for the most current status.
 
