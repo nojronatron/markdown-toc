@@ -7,12 +7,12 @@ on:
     types:
     - created
 
+env:
+  VSIX_FILE_NAME: jr-markdowntoc-vscode-0.4.0.vsix
+
 jobs:
   build-test-package:
     runs-on: windows-latest
-
-    env:
-      VSIX_FILE_NAME: jr-markdowntoc-vscode-0.4.0.vsix
 
     strategy:
       matrix:
@@ -37,7 +37,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: markdowntoc-package
-        path: $VSIX_FILE_NAME
+        path: $env:VSIX_FILE_NAME
         if-no-files-found: 'error'
     - name: publish to marketplace
       if: success()
