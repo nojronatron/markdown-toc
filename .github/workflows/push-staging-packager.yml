@@ -27,7 +27,7 @@ jobs:
     - run: npm run test
     - name: package with vsce
       run: |
-        npm install -g vsce
+        npm install -g @vscode/vsce
         vsce package
       working-directory: ${{ github.workspace }}
     - name: upload build artifact
@@ -39,4 +39,4 @@ jobs:
     - name: publish to marketplace
       if: success()
       run: |
-        vsce publish -p ${{ secrets.VSCE_PAT}} --pre-release
+        vsce publish -p ${{ secrets.VSCE_PAT }} --pre-release
