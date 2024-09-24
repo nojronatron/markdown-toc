@@ -2,6 +2,17 @@ const assert = require('assert');
 const findTopHeading = require('../../extension-functions/find-top-heading');
 
 suite('findTopHeading tests', () => {
+  test('should find Closed ATX style level 1 heading in a markdown document', () => {
+    const markdown = '# Heading 1 Match #\n# No Match Heading 1\n## Heading 2 No Match\n## Heading 2 Closed ATX No Match\n';
+    const expected = { line: 0, text: '# Heading 1 Match #', isHash: true, isClosedAtx: true, isToc: false };
+    const actual = findTopHeading(markdown);
+    assert.strictEqual(actual.text, expected.text, 'The text of the top heading does not match the expected text');
+    assert.strictEqual(actual.line, expected.line, 'The line number of the top heading does not match the expected line number');
+    assert.strictEqual(actual.isHash, expected.isHash, 'The top heading does not start with a hash character');
+    assert.strictEqual(actual.isClosedAtx, expected.isClosedAtx, 'The top heading is not in closed ATX style');
+    assert.strictEqual(actual.isToc, expected.isToc, 'The top heading is a table of contents');
+  });
+
   test('should return the correct first level heading using standard heading style in a markdown document', () => {
     const markdown = '# Heading 1\n## Heading 2\n### Heading 3\n';
     const expected = { line: 0, text: '# Heading 1', isHash: true, isToc: false };
@@ -64,14 +75,14 @@ suite('findTopHeading tests', () => {
   });
 
   test('should not find a first level heading if one does not exist in the markdown', () => {
-    const expected = { line: -1, text: '', isHash: true, isToc: false };
+    const expected = { line: -1, text: '', isHash: false, isToc: false };
     const markdown1 = 'Heading 1\n-\n\ntext\n\nHeading2\n--\n\ntext\n\n';
     const actual1 = findTopHeading(markdown1);
 
-    assert.strictEqual(actual1.line, expected.line);
-    assert.strictEqual(actual1.text, expected.text);
-    assert.strictEqual(actual1.isHash, expected.isHash);
-    assert.strictEqual(actual1.isToc, expected.isToc);
+    assert.strictEqual(actual1.line, expected.line, 'The line number of the top heading does not match the expected line number');
+    assert.strictEqual(actual1.text, expected.text, 'The text of the top heading does not match the expected text');
+    assert.strictEqual(actual1.isHash, expected.isHash, 'The top heading does not start with a hash character');
+    assert.strictEqual(actual1.isToc, expected.isToc, 'The top heading is a table of contents');
 
     const markdown2 = '## Heading 1\ntext\n## Heading2\ntext\n\n## Heading 3\n\ntext\n\n\n';
     const actual2 = findTopHeading(markdown2);
