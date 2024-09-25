@@ -20,16 +20,6 @@ function getSecondLevelHeading(firstLine, firstLineIdx, secondLine, isHash, isCl
   // clean title of all illegal characters
   let cleanedFirstLine = getTitleOnly(firstLine);
 
-  if (isTableOfContents(cleanedFirstLine)) {
-    return {
-      line: firstLineIdx,
-      text: cleanedFirstLine,
-      isHash: isHash,
-      isClosedAtx: isClosedAtx,
-      isToc: true,
-    };
-  }
-
   if (isHash) {
     return getHash2LH(firstLine, firstLineIdx, secondLine);
   }
@@ -46,16 +36,6 @@ function getSecondLevelHeading(firstLine, firstLineIdx, secondLine, isHash, isCl
     isClosedAtx: isClosedAtx, 
     isToc: false 
   };
-}
-
-/**
- * Check if the first line contains the text 'Table of Contents'.
- * @param {string} firstLine the text of the first line
- * @returns {boolean} true if the first line contains the text 'Table of Contents'
- */
-function isTableOfContents(firstLine) {
-  // if 'table of contents' is found the matcher returns an array, otherwise null
-  return firstLine.match(/^.*?(?:Table of Contents).*?$/) !== null;
 }
 
 /**
