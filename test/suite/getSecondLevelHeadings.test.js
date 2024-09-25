@@ -258,5 +258,4 @@ suite('getDash2LH Function Tests', () => {
     assert.strictEqual(actual4.isHash, expected4.isHash);
     assert.strictEqual(actual4.isToc, expected4.isToc);
   });
-
 });
