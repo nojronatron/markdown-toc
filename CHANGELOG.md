@@ -6,7 +6,7 @@ See [Keep a Changelog](http://keepachangelog.com/) for how this file is structur
 
 ## [Unreleased]
 
-## [Unreleased] - 2024-09-25
+## [0.4.3] - 2024-09-26
 
 Bugfixes:
 
