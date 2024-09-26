@@ -34,7 +34,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: markdowntoc-package
-        path: jr-markdowntoc-vscode-0.4.1.vsix
+        path: jr-markdowntoc-vscode-0.4.3.vsix
         if-no-files-found: 'error'
     - name: publish to marketplace
       if: success()
