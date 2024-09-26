@@ -1,10 +1,11 @@
-# Special Characters Testing File ##
+# Special Characters Testing File #
 
 ## Expected ToC ##
 
 ```text
 - [Expected ToC](#expected-toc)
 - [Second ,.;[]{}!@$%^&*() Heading](#second--heading)
+- [Parens (Heading)](#parens-heading)
 - [Dotnet.net](#dotnetnet)
 - [Some &$^%&*() Special Characters](#some--special-characters)
 - [Lots   of   spaces](#lots---of---spaces)
