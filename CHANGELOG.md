@@ -6,6 +6,16 @@ See [Keep a Changelog](http://keepachangelog.com/) for how this file is structur
 
 ## [Unreleased]
 
+## [0.4.3] - 2024-09-26
+
+Bugfixes:
+
+- Existing Table of Contents detection is too lax.
+
+Added:
+
+- Sample files for manual testing.
+
 ## [0.4.2] - 2024-09-24
 
 Added:

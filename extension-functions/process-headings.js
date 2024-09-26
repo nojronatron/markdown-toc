@@ -23,9 +23,9 @@ if (itemText.length < 1) {
  */
 const getLoweredKebabCase = function(itemText) {
   // Remove illegal characters, replace spaces with dashes, and convert the input text to lower-kebab-case
-  const cleanedItemText = itemText.replaceAll(/(?:[#!@\$%\^&*'";,~`\.\+=\(\)\[\]\{\}\<\>\:\\\|\/\?])/g, '');
-  const trimmedItemText = cleanedItemText.trim();
-  const loweredcase = trimmedItemText.toLowerCase();
+  let trimmedItemText = itemText.trim();
+  const cleanedItemText = trimmedItemText.replaceAll(/(?:[#!@\$%\^&\*'";,~`\.\+=\(\)\[\]\{\}\<\>\:\\\|\/\?])/g, '');
+  const loweredcase = cleanedItemText.toLowerCase();
   const loweredKebabCase = loweredcase.replaceAll(/\s/g, '-');
   return loweredKebabCase;
 }

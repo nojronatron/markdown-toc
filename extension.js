@@ -38,6 +38,28 @@ function activate(context) {
           return null;
         }
 
+        // check if the document already has a TOC and warn the user if so
+        let hasTOC = false;
+
+        if (topHeading.isClosedAtx) {
+          // if matcher finds a Closed ATX style TOC set hasTOC to true
+          hasTOC = editor.document.getText().match(/^## Table of Contents ##$/m) !== null;
+        } else if (topHeading.isHash) {
+          // if matcher finds an Open ATX style TOC set hasTOC to true
+          hasTOC = editor.document.getText().match(/^## Table of Contents$/m) !== null;
+        } else {
+          // if matcher finds a dash style TOC set hasTOC to true
+          const docText = editor.document.getText();
+          // hasTOC = docText.match(/Table of Contents\n-+?/gm) !== null
+          // || docText.match(/Table of Contents\r\n-+?/gm) !== null;
+          hasTOC = docText.match(/(?:Table of Contents)(?:\n|\r\n)(?:-+?)/gm) !== null;
+        }
+
+        if (hasTOC) {
+          vscode.window.showWarningMessage('Table of Contents already exists.');
+          return null;
+        }
+        
         // Check if there is enough content to add a TOC
         if (editor.document.lineCount <= topHeading.line + 3) {
           vscode.window.showWarningMessage(
@@ -55,12 +77,6 @@ function activate(context) {
           let firstLine = editor.document.lineAt(idx-1).text;
           let secondLine = editor.document.lineAt(idx).text;
           const headingObject = getSecondLevelHeading(firstLine, idx-1, secondLine, topHeading.isHash, topHeading.isClosedAtx);
-
-          if (headingObject.isToc) {
-            // do no harm to existing document and allow user to make changes
-            vscode.window.showWarningMessage('Table of Contents already exists.');
-            return null;
-          }
           
           if (headingObject.line !== -1) {
             // add the heading object to the array if line is not -1
