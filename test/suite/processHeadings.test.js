@@ -92,13 +92,47 @@ suite('process-headings module tests', () => {
   });
 
   test('Get valid link fragment from a title string and a lowered-kebab-case string', () => {
-      assert.strictEqual(getLinkFragment(expectedFirstHeading, expectedFirstLoweredKebabHeading), expectedFirstTocResult);
-      assert.strictEqual(getLinkFragment(expectedSecondHeading, expectedSecondLoweredKebabHeading), expectedSecondTocResult);
-      assert.strictEqual(getLinkFragment(expectedThirdHeading, expectedThirdLoweredKebabHeading), expectedThirdTocResult, 'Third ToC Fragment does not match (missing the trailing spaces?)');
-      assert.strictEqual(getLinkFragment(expectedDotNetHeading, expectedDotnetNetLoweredKebabHeading), expectedDotnetNetTocResult);
-      assert.strictEqual(getLinkFragment(expectedItemsTodosHeading, expectedItemsTodosLoweredKebabHeading), expectedItemsTodosTocResult);
-      assert.strictEqual(getLinkFragment(expectedAspnetCoreHeading, expectedAspnetCoreLoweredKebabHeading), expectedAspnetCoreTocResult);
-      assert.strictEqual(getLinkFragment(expectedUnderscoreLowerCaseChar, expectedUnderscoreLoweredKebabCaseChar), expectedUnderscoreLowerCharTocResult);
-      assert.notStrictEqual(getLinkFragment(expectedIllegalCharactersHeading, expectedIllegalCharactersLoweredKebab), expectedIllegalCharsTocResult, 'Illegal characters are stripped from the title and/or link fragment but should not be.');
+    assert.strictEqual(getLinkFragment(expectedFirstHeading, expectedFirstLoweredKebabHeading), expectedFirstTocResult);
+    assert.strictEqual(getLinkFragment(expectedSecondHeading, expectedSecondLoweredKebabHeading), expectedSecondTocResult);
+    assert.strictEqual(getLinkFragment(expectedThirdHeading, expectedThirdLoweredKebabHeading), expectedThirdTocResult, 'Third ToC Fragment does not match (missing the trailing spaces?)');
+    assert.strictEqual(getLinkFragment(expectedDotNetHeading, expectedDotnetNetLoweredKebabHeading), expectedDotnetNetTocResult);
+    assert.strictEqual(getLinkFragment(expectedItemsTodosHeading, expectedItemsTodosLoweredKebabHeading), expectedItemsTodosTocResult);
+    assert.strictEqual(getLinkFragment(expectedAspnetCoreHeading, expectedAspnetCoreLoweredKebabHeading), expectedAspnetCoreTocResult);
+    assert.strictEqual(getLinkFragment(expectedUnderscoreLowerCaseChar, expectedUnderscoreLoweredKebabCaseChar), expectedUnderscoreLowerCharTocResult);
+    assert.notStrictEqual(getLinkFragment(expectedIllegalCharactersHeading, expectedIllegalCharactersLoweredKebab), expectedIllegalCharsTocResult, 'Illegal characters are stripped from the title and/or link fragment but should not be.');
   });
+
+  test('Parens should not break link frag anchorings', () => {
+    // remember: CreateToc will have the getHash2LH or getDash2LH title versions which do not include leading or trailing characters
+    // regex to match the link fragment
+    const regex = /\- \[Parentheses \( \)\]\(#parentheses\-\-\)/g;
+
+    const parensOpenAtxHeading = 'Parentheses ( )';
+    const expectedOpenAtxParensHeading = 'Parentheses ( )';
+
+    const parensClosedAtxHeading = 'Parentheses ( )';
+    const expectedClosedAtxParensHeading = 'Parentheses ( )';
+
+    const parensNextLineHeading = 'Parentheses ( )';
+    const expectedNextLineParensHeading = 'Parentheses ( )';
+
+    const expectedParensLoweredKebabHeading = 'parentheses--';
+    const expectedParensTocResult = '- [Parentheses ( )](#parentheses--)';
+
+    assert.strictEqual(getTitleOnly(parensOpenAtxHeading), expectedOpenAtxParensHeading, 'The OpenAtx title should be Parentheses ( )');
+    assert.strictEqual(getLoweredKebabCase(expectedOpenAtxParensHeading), expectedParensLoweredKebabHeading, 'The OpenAtx lowered-kebab-case should be parentheses--');
+    const actualOpenAtxLinkFragment = getLinkFragment(expectedOpenAtxParensHeading, expectedParensLoweredKebabHeading);
+    assert.ok(actualOpenAtxLinkFragment.match(regex), 'The OpenAtx link fragment should be - [Parentheses ( )](#parentheses--)');
+
+    assert.strictEqual(getTitleOnly(parensClosedAtxHeading), expectedClosedAtxParensHeading, 'The ClosedAtx title should be Parentheses ( )');
+    assert.strictEqual(getLoweredKebabCase(expectedClosedAtxParensHeading), expectedParensLoweredKebabHeading, 'The ClosedAtx lowered-kebab-case should be parentheses--');
+    const actualClosedAtxLinkFragment = getLinkFragment(expectedClosedAtxParensHeading, expectedParensLoweredKebabHeading);
+    assert.ok(actualClosedAtxLinkFragment.match(regex), 'The ClosedAtx link fragment should be - [Parentheses ( )](#parentheses--)');
+
+    assert.strictEqual(getTitleOnly(parensNextLineHeading), expectedNextLineParensHeading, 'The NextLine title should be Parentheses ( )');
+    assert.strictEqual(getLoweredKebabCase(expectedNextLineParensHeading), expectedParensLoweredKebabHeading, 'The NextLine lowered-kebab-case should be parentheses--');
+    const actualNextLineLinkFragment = getLinkFragment(expectedNextLineParensHeading, expectedParensLoweredKebabHeading);
+    assert.ok(actualNextLineLinkFragment.match(regex), expectedParensTocResult, 'The NextLine link fragment should be - [Parentheses ( )](#parentheses--)');
+  });
+
 });

@@ -9,3 +9,7 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.ts
 **/tsconfig.json
+**/.vscode-test.js
+**/.github
+**/coverage
+**/images/markdown*.*
