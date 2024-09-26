@@ -91,10 +91,10 @@ suite('getSecondLevelHeading Module tests', () => {
 
     const expectedAlt5 = { line: 10, text: 'Level 2 Heading', isHash: false, isToc: false };
     const actualResult5 = getSecondLevelHeading(alternateLine2, 10, alternateDashedLine, false);
-    assert.strictEqual(actualResult5.line, expectedAlt5.line);
-    assert.strictEqual(actualResult5.text, expectedAlt5.text);
-    assert.strictEqual(actualResult5.isHash, expectedAlt5.isHash);
-    assert.strictEqual(actualResult5.isToc, expectedAlt5.isToc);
+    assert.strictEqual(actualResult5.line, expectedAlt5.line, 'line number does not match.');
+    assert.strictEqual(actualResult5.text, expectedAlt5.text, 'Text does not match.');
+    assert.strictEqual(actualResult5.isHash, expectedAlt5.isHash, 'isHash does not match.');
+    assert.strictEqual(actualResult5.isToc, expectedAlt5.isToc, 'isToc does not match.');
   });
 });
 
@@ -258,5 +258,4 @@ suite('getDash2LH Function Tests', () => {
     assert.strictEqual(actual4.isHash, expected4.isHash);
     assert.strictEqual(actual4.isToc, expected4.isToc);
   });
-
 });

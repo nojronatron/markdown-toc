@@ -14,6 +14,7 @@ Locates all Level 2 headings in the currently selected markdown file and creates
 - Unsupported link-fragment characters are removed.
 - Headings that contain characters other than alpha-numerics will likely be processed with the exception of unsupported characters such as `<`, `>`, and `:`.
 - Use the VSCode Command Palette to insert the new table of contents.
+- If a Table of Contents already exists, the extension will not make any changes.
 
 See [CHANGELOG.md](./CHANGELOG.md) for details.
 
@@ -51,6 +52,12 @@ For development:
 - `node 20.14.x`.
 - See `package.json` for additional dev dependencies in [my GitHub Project Repo](https://github.com/nojronatron/markdown-toc/).
 
+### Testing
+
+Automatically run unit tests in a Terminal by using `npm test`.
+
+Manual test files are located in the `/test/manual-test-files/` directory. Run VS Code, Press F5 to execute the 'Run Extension' Launch Configuration, and then open the folder to get started. _Avoid_ saving changes to the files.
+
 ## Extension Settings
 
 Contributes.Command: `markdown-toc.createTOC` "Create Table of Contents"
@@ -62,7 +69,7 @@ ActivationEvents: none.
 - Always use a Markdown Linter before running this tool for the best results.
 - A Level 1 Heading must be followed by a newline character or it will be ignored (note: Table of Contents generation does not depend on any Level 1 heading specifically).
 - Headings that start with a space may cause Create ToC to ignore the heading.
-- Skipped level 2 headings will not be shown in the generated Table of Contents.
+- Level 2 headings that do not match Level 1 heading style will not be shown in the generated Table of Contents.
 - Using multiple headings types will produce unexpected results.
 - A user can create a Heading with many spaces in it that will Lint without error. Create ToC will generate a valid, Linted Link Fragment for that "spacey heading" _but_ the link will be dead.
 
@@ -70,7 +77,7 @@ _Note_: See [GitHub Issues List](https://github.com/nojronatron/markdown-toc/iss
 
 ## Release Notes
 
-This release adds the ability to detect both Standard style and Alternate style level 1 and level 2 headings. In both cases, the generated Table of Contents anchors link fragments to the headings near the top of the existing markdown document.
+This release adds the ability to detect both Standard (Open ATX and Closed ATX) style and Alternate (Next Line) style level 1 and level 2 headings. In all cases, the generated Table of Contents with link fragments will be inserted near the top of the existing markdown document under the first discovered Level 1 heading.
 
 See [CHANGELOG.md](./CHANGELOG.md) for detailed release notes.
 

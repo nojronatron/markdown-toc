@@ -20,16 +20,6 @@ function getSecondLevelHeading(firstLine, firstLineIdx, secondLine, isHash, isCl
   // clean title of all illegal characters
   let cleanedFirstLine = getTitleOnly(firstLine);
 
-  if (isTableOfContents(cleanedFirstLine)) {
-    return {
-      line: firstLineIdx,
-      text: cleanedFirstLine,
-      isHash: isHash,
-      isClosedAtx: isClosedAtx,
-      isToc: true,
-    };
-  }
-
   if (isHash) {
     return getHash2LH(firstLine, firstLineIdx, secondLine);
   }
@@ -46,16 +36,6 @@ function getSecondLevelHeading(firstLine, firstLineIdx, secondLine, isHash, isCl
     isClosedAtx: isClosedAtx, 
     isToc: false 
   };
-}
-
-/**
- * Check if the first line contains the text 'Table of Contents'.
- * @param {string} firstLine the text of the first line
- * @returns {boolean} true if the first line contains the text 'Table of Contents'
- */
-function isTableOfContents(firstLine) {
-  // if 'table of contents' is found the matcher returns an array, otherwise null
-  return firstLine.match(/^.*?(?:Table of Contents).*?$/) !== null;
 }
 
 /**
@@ -131,12 +111,12 @@ function getDash2LH(firstLine, firstLineIdx, secondLine) {
   };
 
   // check for a dash style heading in line 2
-  if (secondLine.startsWith('-')) {
-    // check for text in line 1 and clean it up for future use
-    if (firstLine.match(/^(?:[a-zA-Z0-9_] *?)+$/m)) {
-      const firstLineText = firstLine.trim();
+  if (secondLine.match(/^-+[-\s]*?$/m) !== null) {
+    // the second link is a single of multiple dash with no other characters on the line
+    if(firstLine.match(/^[a-zA-Z0-9]+.+$/m) !== null) {
+      // the first line contains at least one alphanumeric character followed by any character
       returnObj.line = firstLineIdx;
-      returnObj.text = firstLineText;
+      returnObj.text = firstLine.trim();
     }
   }
 
