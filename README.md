@@ -52,6 +52,12 @@ For development:
 - `node 20.14.x`.
 - See `package.json` for additional dev dependencies in [my GitHub Project Repo](https://github.com/nojronatron/markdown-toc/).
 
+### Testing
+
+Automatically run unit tests in a Terminal by using `npm test`.
+
+Manual test files are located in the `/test/manual-test-files/` directory. Run VS Code, Press F5 to execute the 'Run Extension' Launch Configuration, and then open the folder to get started. _Avoid_ saving changes to the files.
+
 ## Extension Settings
 
 Contributes.Command: `markdown-toc.createTOC` "Create Table of Contents"
