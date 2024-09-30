@@ -4,7 +4,9 @@ All notable changes to the "markdown-toc" extension will be documented in this f
 
 See [Keep a Changelog](http://keepachangelog.com/) for how this file is structured.
 
-## [Unreleased]
+## [0.4.4] - 2024-09-30
+
+Publish Release to Visual Studio Marketplace.
 
 ## [0.4.3] - 2024-09-26
 
